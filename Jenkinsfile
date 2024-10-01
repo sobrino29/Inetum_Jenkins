@@ -19,13 +19,13 @@ pipeline {
                 script {
                     // Usa curl para hacer una solicitud a la API
                     def weather = sh(script: "curl -s '${API_URL}'", returnStdout: true).trim()
-
+                    echo weather
                     // Extrae información usando jq (asegúrate de que jq esté instalado en tu entorno de Jenkins)
-                    def temperature = sh(script: "echo '${weather}' | jq '.main.temp'", returnStdout: true).trim()
-                    def weatherDescription = sh(script: "echo '${weather}' | jq -r '.weather[0].description'", returnStdout: true).trim()
+                    /*def temperature = sh(script: "echo '${weather}' | jq '.main.temp'", returnStdout: true).trim()
+                    def weatherDescription = sh(script: "echo '${weather}' | jq -r '.weather[0].description'", returnStdout: true).trim()*/
 
                     // Muestra la información del clima
-                    echo "Clima actual en ${CITY}: ${temperature}°C, ${weatherDescription}"
+                    /*echo "Clima actual en ${CITY}: ${temperature}°C, ${weatherDescription}"*/
                 }
             }
         }
