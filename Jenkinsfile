@@ -9,7 +9,7 @@ pipeline {
 
     environment {
         API_KEY = 'c6e28ee4beb13e779c119083e478e8c1' // Clave API de OpenWeatherMap
-        CITY = 'Ciudad Real' // Ciudad a consultar
+        CITY = 'Ciudad%20Real' // Ciudad a consultar
         API_URL = "http://api.openweathermap.org/data/2.5/weather?q=${CITY}&appid=${API_KEY}&units=metric"
         POPULATION = '75,000' // Cambia a la población actual (actualiza este valor manualmente)
     }
