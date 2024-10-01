@@ -10,7 +10,7 @@ pipeline {
     environment {
         API_KEY = 'c6e28ee4beb13e779c119083e478e8c1'
         CITY = 'Ciudad%20Real' // Asegúrate de que la ciudad esté codificada
-        API_URL = "http://api.openweathermap.org/data/2.5/weather?q=${CITY}&appid=${API_KEY}&units=metric"
+        API_URL = "http://api.openweathermap.org/data/2.5/weather?q=${CITY}&&appid=${API_KEY}&units=metric"
     }
     
     stages {
