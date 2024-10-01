@@ -4,27 +4,33 @@ Desarrollar un pipeline que informe lo siguiente:
 -	Población actual
 Desde la rama de desarrollo a través de un Jenkinsfile*/
 
-
-pipeline
-{
+pipeline {
     agent any
 
     environment {
-        API_KEY = 'c6e28ee4beb13e779c119083e478e8c1' // Reemplaza con tu clave API de OpenWeatherMap
-        CITY = 'Ciudad Real' // Cambia a la ciudad que deseas consultar
+        API_KEY = 'c6e28ee4beb13e779c119083e478e8c1' // Clave API de OpenWeatherMap
+        CITY = 'Ciudad Real' // Ciudad a consultar
         API_URL = "http://api.openweathermap.org/data/2.5/weather?q=${CITY}&appid=${API_KEY}&units=metric"
+        POPULATION = '75,000' // Cambia a la población actual (actualiza este valor manualmente)
     }
-    stages
-    {
-        stage("ClimaActual")
-        {
-            steps
-            {
-                script{
-                  // Usa curl para hacer una solicitud a la API
+    
+    stages {
+        stage("Clima Actual") {
+            steps {
+                script {
+                    // Usa curl para hacer una solicitud a la API
                     def weather = sh(script: "curl -s '${API_URL}'", returnStdout: true).trim()
-                    echo "Clima actual en ${CITY}: ${weather}"  
+                    
+                    // Extrae la temperatura y la descripción del clima usando jq
+                    def temperature = sh(script: "echo '${weather}' | jq '.main.temp'", returnStdout: true).trim()
+                    def weatherDescription = sh(script: "echo '${weather}' | jq -r '.weather[0].description'", returnStdout: true).trim()
+
+                    // Muestra la información del clima
+                    echo "Clima actual en ${CITY}: ${temperature}°C, ${weatherDescription}"
+                    echo "Población actual de ${CITY}: ${POPULATION}"
+                }
             }
-      }
-   }     
+        }
+    }
 }
+
